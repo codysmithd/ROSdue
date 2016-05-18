@@ -10,7 +10,7 @@ Arduino code. It's pretty simple, an example sketch might look like this:
 ```c
 #include <rosdue.h>
 
-void callback2(int i) {
+void callback2(float f) {
   // Do something when you get a message on topic 2
 }
 
@@ -38,9 +38,9 @@ package. All it contains is the script that connect to the Arduino over serial a
 
 Once you have the package built and are ready to go, make sure you have `roscore` going, and run the node:
 ```
-$ rosrun rosdue talker.py /path/to/arduino/device
+$ rosrun rosdue serial_due.py /path/to/arduino/device
 ```
-Where `/path/to/ardiuno/device` is the path to the serial interface for the arduino. After that, you should see some messages
+Where `/path/to/ardiuno/device` is the path to the serial interface for the Arduino. After that, you should see some messages
 about creating the publishers and subscribers that you had setup on the Arduino and you should be good to go!
 
 ## Contributing

@@ -1,19 +1,19 @@
 <?xml version="1.0"?>
 <package>
   <name>rosdue</name>
-  <version>0.0.1</version>
-  <description>ROS node to compliment the Arduino ROSdue which allows ROS publishers and subscribers to used on an Arduino</description>
+  <version>0.0.0</version>
+  <description>The rosdue package</description>
 
   <!-- One maintainer tag required, multiple allowed, one person per tag --> 
   <!-- Example:  -->
   <!-- <maintainer email="jane.doe@example.com">Jane Doe</maintainer> -->
-  <maintainer email="cds7494@rit.edu”>Cody Smith</maintainer>
+  <maintainer email="cody@todo.todo">cody</maintainer>
 
 
   <!-- One license tag required, multiple allowed, one license per tag -->
   <!-- Commonly used license strings: -->
   <!--   BSD, MIT, Boost Software License, GPLv2, GPLv3, LGPLv2.1, LGPLv3 -->
-  <license>MIT</license>
+  <license>TODO</license>
 
 
   <!-- Url tags are optional, but mutiple are allowed, one per tag -->
@@ -26,7 +26,7 @@
   <!-- Authors do not have to be maintianers, but could be -->
   <!-- Example: -->
   <!-- <author email="jane.doe@example.com">Jane Doe</author> -->
-  <author email=“cds7494@rit.edu”>Cody Smith</author>
+
 
   <!-- The *_depend tags are used to specify dependencies -->
   <!-- Dependencies can be catkin packages or system dependencies -->

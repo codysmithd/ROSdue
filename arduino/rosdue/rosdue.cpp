@@ -64,10 +64,11 @@ void ROSdue::_parse_input(String s) {
     }
 
     // subscriber ACK msg? Find the sub and activate it.
-    if(topic == MSG_ACK){
+    if(topic.equals(MSG_ACK)){
+
         for(int i=0; i<new_subscribers_index; i++) {
             Subscriber s = *new_subscribers[i];
-            if (s.topic == data) {
+            if (s.topic.equals(data)) {
 
                 // Add sub to active
                 subscribers[subscribers_index] = new_subscribers[i];
@@ -82,18 +83,19 @@ void ROSdue::_parse_input(String s) {
 
                 // Move everything after to the left (up to insertion point)
                 for(int j=i; j<new_subscribers_index; j++){
-                    new_subscribers[j] = new_subscribers[j++];
+                    new_subscribers[j] = new_subscribers[j+1];
                 }
 
             }
         }
-    }
-
-    // Topic we subscribe to, find the sub
-    for(int i=0; i<subscribers_index; i++) {
-        Subscriber s = *subscribers[i];
-        if (s.topic == topic) {
-            s.callback(data.toInt());
+    } else {
+        // Topic we subscribe to, find the sub
+        for(int i=0; i<subscribers_index; i++) {
+            Subscriber s = *subscribers[i];
+            if (s.topic.equals(topic)) {
+                s.callback(data.toFloat());
+                break;
+            }
         }
     }
 
@@ -111,7 +113,7 @@ Publisher::Publisher(String t){
 // Subscriber //
 ////////////////
 
-Subscriber::Subscriber(String t, void (*callback_func)(int i)){
+Subscriber::Subscriber(String t, void (*callback_func)(float f)){
     topic = t;
     callback = callback_func;
 };
@@ -136,6 +138,7 @@ void serialEvent(){
             // Overflow Check
             if (serialBufferIndex >= INPUT_BUFFER_SIZE) {
                 serialBufferIndex = 0;
+                Serial.println("ERROR: BUFFER OVERFLOW");
             }
 
         } else {

@@ -29,8 +29,8 @@ public:
 class Subscriber {
 public:
     String topic;
-    void (*callback) (int i);
-    Subscriber(String t, void (*callback_func)(int i));
+    void (*callback) (float f);
+    Subscriber(String t, void (*callback_func)(float f));
 };
 
 // ROSdue: Represents a connection to a computer running ROS over serial

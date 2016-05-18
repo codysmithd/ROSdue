@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# Software License Agreement (MIT License)
 
 import rospy
 from std_msgs.msg import Float32
@@ -10,7 +9,7 @@ import serial
 # Serial connection
 serial_connection = serial.Serial()
 serial_connection.baudrate = 115200
-serial_connection.timeout = 1
+serial_connection.timeout = 0.5
 
 # publishers[topic] = publisher
 publishers = {}
@@ -28,7 +27,7 @@ atexit.register(on_close)
 # Function to create closure for topic handler
 def subscriber_handler(topic):
     def handler(data):
-        serial_connection.write(topic + ';' + str(data.data));
+        serial_connection.write(topic + ';' + str(data.data) + '\n')
     return handler
 
 def main():
@@ -48,7 +47,6 @@ def main():
 
     while not rospy.is_shutdown():
 
-        #input_string = serial_connection.readline().strip().split(';');
         input_string = serial_connection.readline().strip()
 
         try:
@@ -70,7 +68,8 @@ def main():
                     if (topic == 'new_sub'):
                         serial_connection.write(b'ACK;' + data + '\n')
                         if(data in subscribers.keys()):
-                            rospy.loginfo('ROSdue: wating for DUE to respond to subscriber ACK')
+                            pass
+                            #rospy.loginfo('ROSdue: wating for DUE to respond to subscriber ACK for:' + data)
                         else:
                             subscribers[data] = rospy.Subscriber(data, Float32, subscriber_handler(data))
                             rospy.loginfo('ROSdue: Created Subscriber: ' + data)
@@ -86,7 +85,10 @@ def main():
                     rospy.loginfo('ROSdue: Invalid message sent over serial (length wrong)')
 
             else:
-                rospy.loginfo('ROSdue: Invalid message sent over serial: ' + str(input_string))
+                if len(publishers) == 0:
+                    pass # We timed out but are not sending anything so whatever
+                else:
+                    rospy.loginfo('ROSdue: Invalid message sent over serial: ' + str(input_string))
 
         except UnicodeDecodeError:
             rospy.loginfo('ROSdue: Invalid message sent over serial (not unicode)')
